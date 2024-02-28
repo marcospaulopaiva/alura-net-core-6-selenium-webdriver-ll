@@ -24,7 +24,7 @@ alt="#" width="150" height="150">
 </p>
 <p align="left">
   <strong>Aulas:</strong></br> 
-Aula 1 - Elementos invisíveis Ver primeiro vídeo - 20 min</br> 
+Aula 1 - Elementos invisíveis - 20 min</br> 
 Aula 2 - Formulários complexos - 36 min</br> 
 Aula 3 - Frameworks que dificultam - 38min</br> 
 Aula 4 - Esperando para as verificações - 20 min</br> 
