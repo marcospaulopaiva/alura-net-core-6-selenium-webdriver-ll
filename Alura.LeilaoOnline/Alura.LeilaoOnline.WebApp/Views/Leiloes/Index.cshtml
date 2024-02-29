@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Alura.LeilaoOnline.WebApp.Models.LeilaoViewModel>
+﻿@model Pagina<LeilaoViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -49,7 +49,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var leilao in Model)
+                            @foreach (var leilao in Model.Items)
                             {
                                 <tr>
                                     <td>@leilao.Titulo</td>
@@ -117,24 +117,21 @@
                 </div>
                 <!--card.content>table-->
                 <div class="card-action">
-                    @*<span>Mostrando 1 de 10 de 67 registros.</span>*@
                     <ul class="pagination right-align">
-                        <li class="disabled">
-                            <a href="#!" class="grey-text text-lighten-2">
+                        @{
+                            var anteriorDisabled = (Model.Info.Anterior <= 0) ? "disabled" : "";
+                            //var proximaDisabled = (Model.Info.Proxima > )
+                        }
+                        <li class="@anteriorDisabled">
+                            <a asp-action="Index" asp-route-pagina="@Model.Info.Anterior" class="grey-text text-lighten-2">
                                 <i class="material-icons">chevron_left</i>
                             </a>
                         </li>
                         <li class="active waves-effect red">
-                            <a href="#!" class="white-text">1</a>
+                            <a href="#!" class="white-text">@Model.Info.Atual</a>
                         </li>
                         <li class="waves-effect">
-                            <a href="#!" class="grey-text">2</a>
-                        </li>
-                        <li class="waves-effect">
-                            <a href="#!" class="grey-text">3</a>
-                        </li>
-                        <li class="waves-effect">
-                            <a href="#!" class="grey-text">
+                            <a asp-action="Index" asp-route-pagina="@Model.Info.Proxima" class="grey-text">
                                 <i class="material-icons">chevron_right</i>
                             </a>
                         </li>
