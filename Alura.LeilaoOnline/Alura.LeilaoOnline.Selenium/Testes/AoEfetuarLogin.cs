@@ -39,7 +39,7 @@ namespace Alura.LeilaoOnline.Selenium.Testes
             loginPO.PreencheFormulario("marcos.poo@gmail.com", "");
 
             //Act
-            loginPO.SubmeteFormulario();
+            loginPO.EfetuarLogin();
 
             //Assert
             Assert.Contains("Login", _driver.PageSource);

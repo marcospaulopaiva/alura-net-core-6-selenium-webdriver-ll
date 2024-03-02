@@ -22,7 +22,7 @@ namespace Alura.LeilaoOnline.Selenium.Testes
             var loginPO = new LoginPO(_driver);
             loginPO.Visitar();
             loginPO.PreencheFormulario("admin@example.org", "123");
-            loginPO.SubmeteFormulario();
+            loginPO.EfetuarLogin();
 
             var novoLeilaoPO = new NovoLeilaoPO(_driver);
 

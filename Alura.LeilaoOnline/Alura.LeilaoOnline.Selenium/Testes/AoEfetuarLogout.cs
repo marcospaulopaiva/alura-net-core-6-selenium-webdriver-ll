@@ -19,15 +19,16 @@ namespace Alura.LeilaoOnline.Selenium.Testes
         public void DadoLoginValidoDeveIrParaHomeNaoLogada()
         {
             //Arrange
-            var loginPO = new LoginPO(_driver);
-            loginPO.Visitar();
-            loginPO.PreencheFormulario("marcos.poo@gmail.com", "123");
-            loginPO.SubmeteFormulario();
+            new LoginPO(_driver)
+                .Visitar()
+                .InformarLogin("marcos.poo@gmail.com")
+                .InformarSenha("123")
+                .EfetuarLogin();
 
             var dashboardPO = new DashboardInteressadaPO(_driver);
 
             //Act - efetuar logout
-            dashboardPO.EfetuarLogout();
+            dashboardPO.Menu.EfetuarLogout();
 
             //Assert
             Assert.Contains("Próximos Leilões", _driver.PageSource);
