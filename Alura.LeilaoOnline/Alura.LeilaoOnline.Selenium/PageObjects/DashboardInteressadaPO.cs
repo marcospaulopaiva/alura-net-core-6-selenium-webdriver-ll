@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Alura.LeilaoOnline.Selenium.Helpers;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 
 namespace Alura.LeilaoOnline.Selenium.PageObjects
@@ -20,52 +21,27 @@ namespace Alura.LeilaoOnline.Selenium.PageObjects
             byMeuPerfilLink = By.Id("meu-perfil");
 
             bySelectCategorias = By.ClassName("select-wrapper");
-            byInputTermo = By.Id("");
-            byInputAndamento = By.Id("");
-            byBotaoPesquisar = By.Id("");
+            byInputTermo = By.Id("termo");
+            byInputAndamento = By.ClassName("switch");
+            byBotaoPesquisar = By.CssSelector("form>button.btn");
         }
 
-        public void PesquisarLeiloes(List<string> categorias) 
+        public void PesquisarLeiloes(List<string> categorias, string termo, bool emAndamento) 
         {
-            //Seleciona e abre o dropdownlist de categorias.
-            var selectWrapper = driver.FindElement(bySelectCategorias);
-            selectWrapper.Click();
-
-            //Pausa de 2 segundos para ver a execução da ação de seleção.
-            Thread.Sleep(2000);
-
-            //Pega a lista de opções.
-            var opcoes = selectWrapper.FindElements(By.CssSelector("li>span")).ToList();
-
-            //Desmarcando as opções.
-            opcoes.ForEach(o =>
-            {
-                o.Click();
-            });
-
-            //Pausa de 2 segundos para ver a execução da ação de seleção.
-            Thread.Sleep(2000);
-
-            //Seleciona as opções baseado na lista passsada. 
+            var select = new SelectMaterialize(driver, bySelectCategorias);
+            select.DeselectAll();
             categorias.ForEach(categ =>
             {
-                opcoes
-                    .Where(o => o.Text.Contains(categ))
-                    .ToList()
-                    .ForEach(o =>
-                    {
-                        o.Click();
-                    });
+                select.SelectByText(categ);
             });
 
-            //Tira o foco do dropdownlist com um Tab.
-            selectWrapper
-                .FindElement(By.TagName("li"))
-                .SendKeys(Keys.Tab);
+            driver.FindElement(byInputTermo).SendKeys(termo);
 
-            //Pausa de 2 segundos para ver a execução da ação de seleção.
-            Thread.Sleep(2000);
-
+            if (emAndamento)
+            {
+                driver.FindElement(byInputAndamento).Click();
+            }
+            driver.FindElement(byBotaoPesquisar).Click();
         }
 
         internal void EfetuarLogout()
