@@ -2,30 +2,29 @@
 using Alura.LeilaoOnline.Selenium.PageObjects;
 using OpenQA.Selenium;
 using Xunit;
-using System;
 
 namespace Alura.LeilaoOnline.Selenium.Testes
 {
     [Collection("Chrome Driver")]
     public class AoCriarLeilao
     {
-        private IWebDriver _driver;
+        private IWebDriver driver;
 
         public AoCriarLeilao(TestFixture fixture)
         {
-            _driver = fixture.Driver;
+            driver = fixture.Driver;
         }
 
         [Fact]
         public void DadoLoginAdminEInfoValidasDeveCadastrarLeilao()
         {
             //Arrange
-            var loginPO = new LoginPO(_driver);
+            var loginPO = new LoginPO(driver);
             loginPO.Visitar();
             loginPO.PreencheFormulario("admin@example.org", "123");
-            loginPO.SubmeteFormulario();
+            loginPO.EfetuarLogin();
 
-            var novoLeilaoPO = new NovoLeilaoPO(_driver);
+            var novoLeilaoPO = new NovoLeilaoPO(driver);
             novoLeilaoPO.Visitar();
             novoLeilaoPO.PreencheFormulario(
                 "Leilão de Coleção 1",
@@ -41,7 +40,7 @@ namespace Alura.LeilaoOnline.Selenium.Testes
             novoLeilaoPO.SubmeteFormulario();
 
             //Assert
-            Assert.Contains("Leilões cadastrados no sistema", _driver.PageSource);
+            Assert.Contains("Leilões cadastrados no sistema", driver.PageSource);
         }
     }
 }

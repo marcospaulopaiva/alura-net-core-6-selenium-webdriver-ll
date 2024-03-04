@@ -8,21 +8,21 @@ namespace Alura.LeilaoOnline.Selenium.Testes
     [Collection("Chrome Driver")]
     public class AoFiltrarLeiloes
     {
-        private IWebDriver _driver;
+        private IWebDriver driver;
 
         public AoFiltrarLeiloes(TestFixture fixture)
         {
-            _driver = fixture.Driver;
+            driver = fixture.Driver;
         }
 
         [Fact]
         public void DadoLoginInteressadaDeveMostraPainelResultado()
         {
             //Arrange
-            new LoginPO(_driver)
+            new LoginPO(driver)
                 .EfetuarLoginComCredenciais("marcos.poo@gmail.com", "123");
 
-            var dashboardInteressadaPO = new DashboardInteressadaPO(_driver);
+            var dashboardInteressadaPO = new DashboardInteressadaPO(driver);
 
             //Act
             dashboardInteressadaPO.Filtro.PesquisarLeiloes(
@@ -31,7 +31,7 @@ namespace Alura.LeilaoOnline.Selenium.Testes
                 true);
 
             //Assert
-            Assert.Contains("Resultado da pesquisa", _driver.PageSource);
+            Assert.Contains("Resultado da pesquisa", driver.PageSource);
 
         }
     }
