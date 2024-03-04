@@ -7,12 +7,13 @@ namespace Alura.LeilaoOnline.Selenium.Testes
     [Collection("Chrome Driver")]
     public class AoNavegarParaHome
     {
-        private IWebDriver _driver;
+        private IWebDriver driver;
 
         //Setup
         public AoNavegarParaHome(TestFixture fixture)
         {
-            _driver = fixture.Driver;
+            driver = fixture.Driver;
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(15);
         }
 
         [Fact]
@@ -21,10 +22,10 @@ namespace Alura.LeilaoOnline.Selenium.Testes
             //Arrange
 
             //Act
-            _driver.Navigate().GoToUrl("http://localhost:5000");
+            driver.Navigate().GoToUrl("http://localhost:5000");
 
             //Assert
-            Assert.Contains("Leilões", _driver.Title);
+            Assert.Contains("Leilões", driver.Title);
         }
 
         [Fact]
@@ -33,10 +34,10 @@ namespace Alura.LeilaoOnline.Selenium.Testes
             //Arrange
 
             //Act
-            _driver.Navigate().GoToUrl("http://localhost:5000");
+            driver.Navigate().GoToUrl("http://localhost:5000");
 
             //Assert
-            Assert.Contains("Próximos Leilões", _driver.PageSource);
+            Assert.Contains("Próximos Leilões", driver.PageSource);
         }
 
         [Fact]
@@ -45,10 +46,10 @@ namespace Alura.LeilaoOnline.Selenium.Testes
             //Arrange
 
             //Act
-            _driver.Navigate().GoToUrl("http://localhost:5000");
+            driver.Navigate().GoToUrl("http://localhost:5000");
 
             //Assert
-            var form = _driver.FindElement(By.TagName("form"));
+            var form = driver.FindElement(By.TagName("form"));
             var spans = form.FindElements(By.TagName("span"));
             foreach(var span in spans)
             {

@@ -8,41 +8,41 @@ namespace Alura.LeilaoOnline.Selenium.Testes
     [Collection("Chrome Driver")]
     public class AoEfetuarLogin
     {
-        private IWebDriver _driver;
+        private IWebDriver driver;
 
         public AoEfetuarLogin(TestFixture fixture)
         {
-            _driver = fixture.Driver; 
+            driver = fixture.Driver; 
         }
 
         [Fact]
         public void DadoCredenciaisValidasDeveIrParaDashboard()
         {
             //Arrange
-            var loginPO = new LoginPO(_driver);
+            var loginPO = new LoginPO(driver);
             loginPO.Visitar();
             loginPO.PreencheFormulario("marcos.poo@gmail.com", "123");
 
             //Act
-            loginPO.SubmeteFormulario();
+            loginPO.EfetuarLogin();
             
             //Assert
-            Assert.Contains("Dashboard", _driver.Title);
+            Assert.Contains("Dashboard", driver.Title);
         }
 
         [Fact]
         public void DadoCredenciasInvalidasDeveContinuarLogin()
         {
             //Arrange
-            var loginPO = new LoginPO(_driver);
+            var loginPO = new LoginPO(driver);
             loginPO.Visitar();
             loginPO.PreencheFormulario("marcos.poo@gmail.com", "");
 
             //Act
-            loginPO.SubmeteFormulario();
+            loginPO.EfetuarLogin();
 
             //Assert
-            Assert.Contains("Login", _driver.PageSource);
+            Assert.Contains("Login", driver.PageSource);
         }
 
     }

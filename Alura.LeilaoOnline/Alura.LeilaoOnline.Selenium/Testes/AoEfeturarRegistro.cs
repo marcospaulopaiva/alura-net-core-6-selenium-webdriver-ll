@@ -8,18 +8,18 @@ namespace Alura.LeilaoOnline.Selenium.Testes
     [Collection("Chrome Driver")]
     public class AoEfeturarRegistro
     {
-        private IWebDriver _driver;
+        private IWebDriver driver;
 
         public AoEfeturarRegistro(TestFixture fixture)
         {
-            _driver = fixture.Driver;
+            driver = fixture.Driver;
         }
 
         [Fact]
         public void DadoInfoValidasDeveIrParaPaginaDeAgradecimento()
         {
             //Arrange
-            var registroPO = new RegistroPO(_driver);
+            var registroPO = new RegistroPO(driver);
             registroPO.Visitar();
 
             registroPO.PreencheFormulario(
@@ -33,7 +33,7 @@ namespace Alura.LeilaoOnline.Selenium.Testes
             registroPO.SubmeteFormulario();
 
             //Assert - devo ser direcionado para uma pagina de agradecimento.
-            Assert.Contains("Obrigado", _driver.PageSource);
+            Assert.Contains("Obrigado", driver.PageSource);
         }
 
         [Theory]
@@ -44,7 +44,7 @@ namespace Alura.LeilaoOnline.Selenium.Testes
         public void DadoInfoInvalidasDeveContinuarNaHome(string nome, string email, string senha, string confirmSenha)
         {
             //Arrange
-            var registroPO = new RegistroPO(_driver);
+            var registroPO = new RegistroPO(driver);
             registroPO.Visitar();
 
             registroPO.PreencheFormulario(
@@ -58,14 +58,14 @@ namespace Alura.LeilaoOnline.Selenium.Testes
             registroPO.SubmeteFormulario();
 
             //Assert - devo ser direcionado para uma pagina de agradecimento.
-            Assert.Contains("section-registro", _driver.PageSource);
+            Assert.Contains("section-registro", driver.PageSource);
         }
 
         [Fact]
         public void DadoNomeEmBrancoDeveMostrarMensagemDeErro()
         {
             //Arrange
-            var registroPO = new RegistroPO(_driver);
+            var registroPO = new RegistroPO(driver);
             registroPO.Visitar();
 
             registroPO.PreencheFormulario(
@@ -86,7 +86,7 @@ namespace Alura.LeilaoOnline.Selenium.Testes
         public void DadoEmailEmBrancoDeveMostrarMensagemDeErro()
         {
             //Arrange
-            var registroPO = new RegistroPO(_driver);
+            var registroPO = new RegistroPO(driver);
             registroPO.Visitar();
 
             registroPO.PreencheFormulario(
